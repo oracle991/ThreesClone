@@ -22,15 +22,14 @@
 #define SAFE_ON_LOST_DEVICE(ptr)    { if(ptr) { ptr->onLostDevice(); } }
 // Safely call onResetDevice
 #define SAFE_ON_RESET_DEVICE(ptr)   { if(ptr) { ptr->onResetDevice(); } }
-#define TRANSCOLOR  SETCOLOR_ARGB(0,255,0,255)  // transparent color (magenta)
+#define TRANSCOLOR  SETCOLOR_ARGB(255,255,0,255)  // transparent color (magenta)
 
 //-----------------------------------------------
 //                  Constants
 //-----------------------------------------------
 // graphic images
 const char BACKGROUND_IMAGE[] = "pictures\\background.png";  // black 
-const char PLANET_IMAGE[] = "pictures\\planet.png"; // picture of planet
-const char SHIP1_IMAGE[]  = "pictures\\ship1.png";  // spaceship
+const char TILES_IMAGE[] = "pictures\\tiles.png"; //tiles
 
 // window
 const char CLASS_NAME[] = "Spacewar";

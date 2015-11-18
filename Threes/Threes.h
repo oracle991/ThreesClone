@@ -9,8 +9,7 @@
 #include "game.h"
 #include "textureManager.h"
 #include "image.h"
-#include "planet.h"
-#include "ship.h"
+#include "Tile.h"
 
 //=============================================================================
 // This class is the core of the game
@@ -20,7 +19,9 @@ class Threes : public Game
 private:
     // game items
     TextureManager bgTexture;      // background texture
-    Image   bg;         // backdrop image
+    Image   bg;                    // background image
+    TextureManager tilesTexture;
+    Tile    tile;
 
 public:
     // Constructor

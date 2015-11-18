@@ -80,10 +80,9 @@
     <ClCompile Include="graphics.cpp" />
     <ClCompile Include="image.cpp" />
     <ClCompile Include="input.cpp" />
-    <ClCompile Include="planet.cpp" />
-    <ClCompile Include="ship.cpp" />
     <ClCompile Include="textureManager.cpp" />
     <ClCompile Include="Threes.cpp" />
+    <ClCompile Include="Tile.cpp" />
     <ClCompile Include="winmain.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -94,10 +93,9 @@
     <ClInclude Include="graphics.h" />
     <ClInclude Include="image.h" />
     <ClInclude Include="input.h" />
-    <ClInclude Include="planet.h" />
-    <ClInclude Include="ship.h" />
     <ClInclude Include="textureManager.h" />
     <ClInclude Include="Threes.h" />
+    <ClInclude Include="Tile.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

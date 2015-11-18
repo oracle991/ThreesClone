@@ -30,12 +30,20 @@ void Threes::initialize(HWND hwnd)
     {
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
     }
+    if (!tilesTexture.initialize(graphics, TILES_IMAGE))
+    {
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing tiles texture"));
+    }
 
     if (!bg.initialize(graphics, 0, 0, 0, &bgTexture))
     {
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
     }
 
+    if (!tile.initialize(this, 0, 0, 3, &tilesTexture))
+    {
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing tile"));
+    }
     return;
 }
 
@@ -44,6 +52,8 @@ void Threes::initialize(HWND hwnd)
 //=============================================================================
 void Threes::update()
 {
+    tile.update(frameTime);
+    tile.setNum(3);
 }
 
 //=============================================================================
@@ -66,6 +76,7 @@ void Threes::render()
     graphics->spriteBegin();                // begin drawing sprites
 
     bg.draw();                          // add the orion nebula to the scene
+    tile.draw();
 
     graphics->spriteEnd();                  // end drawing sprites
 }
@@ -77,6 +88,7 @@ void Threes::render()
 void Threes::releaseAll()
 {
     bgTexture.onLostDevice();
+    tilesTexture.onLostDevice();
 
     Game::releaseAll();
     return;
@@ -89,6 +101,7 @@ void Threes::releaseAll()
 void Threes::resetAll()
 {
     bgTexture.onResetDevice();
+    tilesTexture.onResetDevice();
 
     Game::resetAll();
     return;

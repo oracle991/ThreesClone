@@ -40,5 +40,6 @@ public:
     void setPosition(int x, int y);
     void randomStart();
     void move(int diffX, int diffY);
-    
+    void addTile(int diffX, int diffY);
+    bool isGameOver();
 };

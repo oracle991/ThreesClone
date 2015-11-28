@@ -310,4 +310,58 @@ void Field::move(int diffX, int diffY)
             }
         }
     }
+    addTile(diffX, diffY);
+}
+
+//動かした後、開いてるところに適当なタイルを突っ込む。
+void Field::addTile(int diffX, int diffY)
+{
+    // 突っ込む数字を最初に決めておく。
+    std::random_device rd;
+    std::mt19937 mt(rd());
+    std::uniform_int_distribution<int> r(1, 3);
+    int addTileNum = r(mt);
+
+    if (diffX != 0)
+    {
+        int x = (diffX == 1) ? 0 : fieldNS::width - 1;
+        std::vector<int> vy;
+        for (int y = 0; y < fieldNS::height; y++)
+        { 
+            if (m_tiles(x, y).getNum() == 0)
+            {
+                vy.push_back(y);
+            }
+        }
+
+        if (vy.size() == 0)
+        {
+            //動かした後に空白ができないというのはありえない。
+            _ASSERT(false);
+        }
+        //候補点がvyに入ってるのでシャッフルして一番最初の要素を突っ込む座標とする
+        std::shuffle(vy.begin(), vy.end(), mt);
+        m_tiles(x, vy.at(0)).setNum(addTileNum);
+    }
+    else if (diffY != 0)
+    {
+        int y = (diffY == 1) ? 0 : fieldNS::height - 1;
+        std::vector<int> vx;
+        for (int x = 0; x < fieldNS::width; x++)
+        {
+            if (m_tiles(x, y).getNum() == 0)
+            {
+                vx.push_back(x);
+            }
+        }
+
+        if (vx.size() == 0)
+        {
+            //動かした後に空白ができないというのはありえない。
+            _ASSERT(false);
+        }
+        //候補点がvxに入ってるのでシャッフルして一番最初の要素を突っ込む座標とする
+        std::shuffle(vx.begin(), vx.end(), mt);
+        m_tiles(vx.at(0), y).setNum(addTileNum);
+    }
 }

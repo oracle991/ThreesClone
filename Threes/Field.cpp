@@ -24,8 +24,31 @@ Field::~Field()
     releaseAll();           // call onLostDevice() for every graphics item
 }
 
+bool Field::canAdd(int num1, int num2)
+{
+    int num = num1 + num2;
+    if (num % 3 != 0)
+    {
+        return false;
+    }
+    else
+    {
+        bool flag = true;
+        while (num != 3)
+        {
+            num /= 2;
+            if (num == 0)
+            {
+                flag = false;
+                break;
+            }
+        }
+        return flag;
+    }
+    return false;
+}
 
-static void convertGlobalPosToFieldPos(int windowX, int windowY, int& fieldX, int& fieldY)
+void Field::convertGlobalPosToFieldPos(int windowX, int windowY, int& fieldX, int& fieldY)
 {
     int centerX = GAME_WIDTH / 2;
     int centerY = GAME_HEIGHT / 2;
@@ -134,7 +157,7 @@ void Field::randomStart()
 {
     std::random_device rd;
     std::mt19937 mt(rd());
-    std::uniform_int_distribution<int> dist(0, 3);
+    std::uniform_int_distribution<int> dist(1, 4);
 
     //[1]は0~3個。[2]は0~3個。[3]は0~3個。
     //タイル数が2個以下だった場合強制的に3個にする(各1個)
@@ -198,11 +221,18 @@ void Field::move(int diffX, int diffY)
         {
             for (int y = 0; y < fieldNS::height; y++)
             {
+                int num = m_tiles(x, y).getNum();
                 int rightNum = m_tiles(x + 1, y).getNum();
                 //右にものがなければ動く。
                 if (rightNum == 0)
                 {
-                    m_tiles(x + 1, y).setNum(m_tiles(x,y).getNum());
+                    m_tiles(x + 1, y).setNum(num);
+                    m_tiles(x, y).setNum(0);
+                }
+                //足せるなら動く。
+                else if (canAdd(num, rightNum))
+                {
+                    m_tiles(x + 1, y).setNum(num + rightNum);
                     m_tiles(x, y).setNum(0);
                 }
             }
@@ -215,11 +245,18 @@ void Field::move(int diffX, int diffY)
         {
             for (int y = 0; y < fieldNS::height; y++)
             {
+                int num = m_tiles(x, y).getNum();
                 int leftNum = m_tiles(x - 1, y).getNum();
                 //左にものがなければ動く。
                 if (leftNum == 0)
                 {
-                    m_tiles(x - 1, y).setNum(m_tiles(x, y).getNum());
+                    m_tiles(x - 1, y).setNum(num);
+                    m_tiles(x, y).setNum(0);
+                }
+                //足せるなら動く。
+                else if (canAdd(num, leftNum))
+                {
+                    m_tiles(x - 1, y).setNum(num + leftNum);
                     m_tiles(x, y).setNum(0);
                 }
             }
@@ -232,11 +269,18 @@ void Field::move(int diffX, int diffY)
         {
             for (int x = 0; x < fieldNS::width; x++)
             {
+                int num = m_tiles(x, y).getNum();
                 int downNum = m_tiles(x, y + 1).getNum();
                 //下にものがなければ動く。
                 if (downNum == 0)
                 {
-                    m_tiles(x, y + 1).setNum(m_tiles(x, y).getNum());
+                    m_tiles(x, y + 1).setNum(num);
+                    m_tiles(x, y).setNum(0);
+                }
+                //足せるなら動く。
+                else if (canAdd(num, downNum))
+                {
+                    m_tiles(x, y + 1).setNum(num + downNum);
                     m_tiles(x, y).setNum(0);
                 }
             }
@@ -249,11 +293,18 @@ void Field::move(int diffX, int diffY)
         {
             for (int x = 0; x < fieldNS::width; x++)
             {
+                int num = m_tiles(x, y).getNum();
                 int upNum = m_tiles(x, y - 1).getNum();
                 //上にものがなければ動く。
                 if (upNum == 0)
                 {
-                    m_tiles(x, y - 1).setNum(m_tiles(x, y).getNum());
+                    m_tiles(x, y - 1).setNum(num);
+                    m_tiles(x, y).setNum(0);
+                }
+                //足せるなら動く。
+                else if (canAdd(num, upNum))
+                {
+                    m_tiles(x, y - 1).setNum(num + upNum);
                     m_tiles(x, y).setNum(0);
                 }
             }

@@ -22,6 +22,8 @@ private:
     Array2d<Tile>  m_tiles;
     int m_x, m_y;
 
+    static bool canAdd(int num1, int num2);
+
 public:
     Field();
     ~Field();
@@ -38,4 +40,5 @@ public:
     void setPosition(int x, int y);
     void randomStart();
     void move(int diffX, int diffY);
+    
 };

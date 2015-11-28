@@ -23,6 +23,7 @@ public:
     bool initialize(Game *gamePtr, int width, int height, int ncols, TextureManager *textureM) override;
     void update(float frameTime);
     void setNum(int num);
+    int getNum() const { return m_num; };
 private:
     int m_num;
 };

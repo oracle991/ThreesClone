@@ -84,6 +84,8 @@ private:
     bool mouseRButton;                          // true if right mouse button down
     bool mouseX1Button;                         // true if X1 mouse button down
     bool mouseX2Button;                         // true if X2 mouse button down
+    bool mouseDrag;                             // true if mouse dragged
+    int  dragStartX, dragStartY, dragEndX, dragEndY;
     ControllerState controllers[MAX_CONTROLLERS];    // state of controllers
 
 public:
@@ -147,7 +149,7 @@ public:
     void mouseRawIn(LPARAM);
 
     // Save state of mouse button
-    void setMouseLButton(bool b) { mouseLButton = b; }
+    void setMouseLButton(bool b){ mouseLButton = b; }
 
     // Save state of mouse button
     void setMouseMButton(bool b) { mouseMButton = b; }
@@ -172,6 +174,11 @@ public:
     // Compatible with high-definition mouse.
     int  getMouseRawY()     const { return mouseRawY; }
 
+    int getMouseDragStartX() const { return dragStartX; }
+    int getMouseDragStartY() const { return dragStartY; }
+    int getMouseDragEndX() const { return dragEndX; }
+    int getMouseDragEndY() const { return dragEndY; }
+
     // Return state of left mouse button.
     bool getMouseLButton()  const { return mouseLButton; }
 
@@ -186,6 +193,8 @@ public:
 
     // Return state of X2 mouse button.
     bool getMouseX2Button() const { return mouseX2Button; }
+
+    bool getMouseDrag() const { return mouseDrag; }
 
     // Update connection status of game controllers.
     void checkControllers();

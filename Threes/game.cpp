@@ -58,10 +58,12 @@ LRESULT Game::messageHandler( HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam 
             case WM_LBUTTONDOWN:                    // left mouse button down
                 input->setMouseLButton(true);
                 input->mouseIn(lParam);             // mouse position
+                SetCapture(hwnd);
                 return 0;
             case WM_LBUTTONUP:                      // left mouse button up
                 input->setMouseLButton(false);
                 input->mouseIn(lParam);             // mouse position
+                ReleaseCapture();
                 return 0;
             case WM_MBUTTONDOWN:                    // middle mouse button down
                 input->setMouseMButton(true);

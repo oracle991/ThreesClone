@@ -7,7 +7,9 @@
 // Constructor
 //=============================================================================
 Threes::Threes()
-{}
+    : m_isDragged(false)
+{
+}
 
 //=============================================================================
 // Destructor
@@ -25,25 +27,18 @@ void Threes::initialize(HWND hwnd)
 {
     Game::initialize(hwnd); // throws GameError
 
-    // nebula texture
     if (!bgTexture.initialize(graphics, BACKGROUND_IMAGE))
     {
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
     }
-    if (!tilesTexture.initialize(graphics, TILES_IMAGE))
-    {
-        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing tiles texture"));
-    }
-
     if (!bg.initialize(graphics, 0, 0, 0, &bgTexture))
     {
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
     }
 
-    if (!tile.initialize(this, 0, 0, 3, &tilesTexture))
-    {
-        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing tile"));
-    }
+    field.initialize(graphics, this);
+    field.setPosition(GAME_WIDTH / 2 - tileNS::width * (fieldNS::width / 2), GAME_HEIGHT / 2 - tileNS::height * (fieldNS::height / 2));
+    field.randomStart();
     return;
 }
 
@@ -52,8 +47,30 @@ void Threes::initialize(HWND hwnd)
 //=============================================================================
 void Threes::update()
 {
-    tile.update(frameTime);
-    tile.setNum(3);
+    if (m_isDragged && !input->getMouseDrag())
+    {
+        //ドラッグが終わった
+        int startX, startY, endX, endY;
+        startX = input->getMouseDragStartX();
+        startY = input->getMouseDragStartY();
+        endX = input->getMouseDragEndX();
+        endY = input->getMouseDragEndY();
+
+        if (std::abs(startX - endX) > std::abs(startY - endY))
+        {
+            int diffX = (startX - endX) > 0 ? -1 : 1;
+            field.move(diffX, 0);
+        }
+        else
+        {
+            int diffY = (startY - endY) > 0 ? -1 : 1;
+            field.move(0, diffY);
+        }
+
+    }
+    m_isDragged = input->getMouseDrag();
+
+    field.update(frameTime);
 }
 
 //=============================================================================
@@ -76,7 +93,7 @@ void Threes::render()
     graphics->spriteBegin();                // begin drawing sprites
 
     bg.draw();                          // add the orion nebula to the scene
-    tile.draw();
+    field.render();
 
     graphics->spriteEnd();                  // end drawing sprites
 }
@@ -88,7 +105,7 @@ void Threes::render()
 void Threes::releaseAll()
 {
     bgTexture.onLostDevice();
-    tilesTexture.onLostDevice();
+    field.releaseAll();
 
     Game::releaseAll();
     return;
@@ -101,7 +118,7 @@ void Threes::releaseAll()
 void Threes::resetAll()
 {
     bgTexture.onResetDevice();
-    tilesTexture.onResetDevice();
+    field.resetAll();
 
     Game::resetAll();
     return;

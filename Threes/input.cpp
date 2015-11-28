@@ -30,6 +30,11 @@ Input::Input()
     mouseRButton = false;               // true if right mouse button is down
     mouseX1Button = false;              // true if X1 mouse button is down
     mouseX2Button = false;              // true if X2 mouse button is down
+    mouseDrag = false;
+    dragStartX = 0;
+    dragStartY = 0;
+    dragEndX = 0;
+    dragEndY = 0;
 
     for(int i=0; i<MAX_CONTROLLERS; i++)
     {
@@ -198,6 +203,10 @@ void Input::clear(UCHAR what)
         mouseY = 0;
         mouseRawX = 0;
         mouseRawY = 0;
+        dragStartX = 0;
+        dragStartX = 0;
+        dragEndX = 0;
+        dragEndY = 0;
     }
     if(what & inputNS::TEXT_IN)
         clearTextIn();
@@ -210,7 +219,25 @@ void Input::mouseIn(LPARAM lParam)
 {
     mouseX = GET_X_LPARAM(lParam); 
     mouseY = GET_Y_LPARAM(lParam);
+
+    if (mouseLButton && !mouseDrag)
+    {
+        //開始座標を記録する
+        mouseDrag = true;
+        dragStartX = mouseX;
+        dragStartY = mouseY;
+        printf("Drag Start. (%d, %d)\n", dragStartX, dragStartY);
+    }
+    else if (!mouseLButton && mouseDrag)
+    {
+        //終了座標を記録する
+        mouseDrag = false;
+        dragEndX = mouseX;
+        dragEndY = mouseY;
+        printf("Drag End. (%d, %d)\n", dragEndX, dragEndY);
+    }
 }
+
 
 //=============================================================================
 // Reads raw mouse data into mouseRawX, mouseRawY

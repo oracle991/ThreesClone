@@ -28,6 +28,8 @@ bool Tile::initialize(Game *gamePtr, int width, int height, int ncols,
     spriteData.rect.right = tileNS::width;
     spriteData.rect.bottom = tileNS::height;
     colorFilter = graphicsNS::MAGENTA;
+    m_num = 0;
+    setNum(m_num);
     return flag;
 }
 
@@ -39,9 +41,9 @@ void Tile::update(float frameTime)
 void Tile::setNum(int num)
 {
     // 引数チェック
-    if (num != 1 || num != 2)
+    if (num != 0 && num != 1 && num != 2)
     {
-        // 1か2でないのならば3で割り切れるはず
+        // 0か1か2でないのならば3で割り切れるはず
         // 1+2 -> 3, 3+3->6, 6+6->12, ...
         if (num % 3 != 0)
         {
@@ -56,7 +58,12 @@ void Tile::setNum(int num)
     m_num = num;
     
     // テクスチャ入れ替え
-    if (num == 1)
+    if (num == 0)
+    {
+        spriteData.rect.left = 0;
+        spriteData.rect.top = (tileNS::TEXTURE_COLS - 1) * tileNS::height;
+    }
+    else if (num == 1)
     {
         spriteData.rect.left = 0;
         spriteData.rect.top = 0;

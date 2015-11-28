@@ -9,7 +9,7 @@
 #include "game.h"
 #include "textureManager.h"
 #include "image.h"
-#include "Tile.h"
+#include "Field.h"
 
 //=============================================================================
 // This class is the core of the game
@@ -20,8 +20,9 @@ private:
     // game items
     TextureManager bgTexture;      // background texture
     Image   bg;                    // background image
-    TextureManager tilesTexture;
-    Tile    tile;
+    Field   field;
+    
+    bool    m_isDragged;
 
 public:
     // Constructor

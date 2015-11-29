@@ -37,6 +37,18 @@ void Threes::initialize(HWND hwnd)
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
     }
 
+    if (!gameOverTexture.initialize(graphics, GAMEOVER_IMAGE))
+    {
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing gameover texture"));
+    }
+    if (!gameOver.initialize(graphics, 0, 0, 0, &gameOverTexture))
+    {
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
+    }
+    gameOver.setVisible(false);
+    gameOver.setX(GAME_WIDTH / 2 - 128);
+    gameOver.setY(GAME_HEIGHT / 2 - 64);
+
     field.initialize(graphics, this);
     field.setPosition(GAME_WIDTH / 2 - tileNS::width * (fieldNS::width / 2), GAME_HEIGHT / 2 - tileNS::height * (fieldNS::height / 2));
     field.randomStart();
@@ -48,6 +60,16 @@ void Threes::initialize(HWND hwnd)
 //=============================================================================
 void Threes::update()
 {
+    if (m_isGameOver)
+    {
+        if (input->getMouseLButton())
+        {
+            //クリックでリセット
+            field.randomStart();
+            m_isGameOver = false;
+            gameOver.setVisible(false);
+        }
+    }
     if (m_isDragged && !input->getMouseDrag())
     {
         //ドラッグが終わった
@@ -56,6 +78,12 @@ void Threes::update()
         startY = input->getMouseDragStartY();
         endX = input->getMouseDragEndX();
         endY = input->getMouseDragEndY();
+
+        if (std::abs(startX - endX) + std::abs(startY - endY) < 5)
+        {
+            //少な過ぎたら無視
+            return;
+        }
 
         if (std::abs(startX - endX) > std::abs(startY - endY))
         {
@@ -78,6 +106,7 @@ void Threes::update()
         if (field.isGameOver())
         {
             m_isGameOver = true;
+            gameOver.setVisible(true);
         }
 
     }
@@ -107,6 +136,7 @@ void Threes::render()
 
     bg.draw();                          // add the orion nebula to the scene
     field.render();
+    gameOver.draw();
 
     graphics->spriteEnd();                  // end drawing sprites
 }
@@ -119,7 +149,7 @@ void Threes::releaseAll()
 {
     bgTexture.onLostDevice();
     field.releaseAll();
-
+    gameOverTexture.onLostDevice();
     Game::releaseAll();
     return;
 }
@@ -132,7 +162,7 @@ void Threes::resetAll()
 {
     bgTexture.onResetDevice();
     field.resetAll();
-
+    gameOverTexture.onResetDevice();
     Game::resetAll();
     return;
 }

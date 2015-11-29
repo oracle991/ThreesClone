@@ -20,6 +20,8 @@ private:
     // game items
     TextureManager bgTexture;      // background texture
     Image   bg;                    // background image
+    TextureManager gameOverTexture;
+    Image   gameOver;
     Field   field;
     
     bool    m_isDragged;

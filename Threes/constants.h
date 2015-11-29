@@ -30,6 +30,7 @@
 // graphic images
 const char BACKGROUND_IMAGE[] = "pictures\\background.png";  // black 
 const char TILES_IMAGE[] = "pictures\\tiles.png"; //tiles
+const char GAMEOVER_IMAGE[] = "pictures\\gameover.png";
 
 // window
 const char CLASS_NAME[] = "Threes";

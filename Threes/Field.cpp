@@ -155,6 +155,14 @@ void Field::setPosition(int x, int y)
 
 void Field::randomStart()
 {
+    for (int x = 0; x < fieldNS::width; x++)
+    {
+        for (int y = 0; y < fieldNS::height; y++)
+        {
+            m_tiles(x, y).setNum(0);
+        }
+    }
+
     std::random_device rd;
     std::mt19937 mt(rd());
     std::uniform_int_distribution<int> dist(1, 4);

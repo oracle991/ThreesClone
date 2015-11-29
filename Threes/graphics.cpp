@@ -1,4 +1,4 @@
-// Programming 2D Games
+﻿// Programming 2D Games
 // Copyright (c) 2011,2012 by:
 // Charles Kelly
 // Chapter 6 graphics.cpp v1.1

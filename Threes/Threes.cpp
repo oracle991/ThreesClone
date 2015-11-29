@@ -8,6 +8,7 @@
 //=============================================================================
 Threes::Threes()
     : m_isDragged(false)
+    , m_isGameOver(false)
 {
 }
 
@@ -59,12 +60,24 @@ void Threes::update()
         if (std::abs(startX - endX) > std::abs(startY - endY))
         {
             int diffX = (startX - endX) > 0 ? -1 : 1;
-            field.move(diffX, 0);
+            if (field.canMove(diffX, 0))
+            {
+                field.move(diffX, 0);
+            }
+            
         }
         else
         {
             int diffY = (startY - endY) > 0 ? -1 : 1;
-            field.move(0, diffY);
+            if (field.canMove(0, diffY))
+            { 
+                field.move(0, diffY);
+            }
+            
+        }
+        if (field.isGameOver())
+        {
+            m_isGameOver = true;
         }
 
     }

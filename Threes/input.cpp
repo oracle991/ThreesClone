@@ -1,4 +1,4 @@
-// Programming 2D Games
+ï»¿// Programming 2D Games
 // Copyright (c) 2011 by: 
 // Charles Kelly
 // input.cpp v1.0
@@ -222,7 +222,7 @@ void Input::mouseIn(LPARAM lParam)
 
     if (mouseLButton && !mouseDrag)
     {
-        //ŠJnÀ•W‚ğ‹L˜^‚·‚é
+        //é–‹å§‹åº§æ¨™ã‚’è¨˜éŒ²ã™ã‚‹
         mouseDrag = true;
         dragStartX = mouseX;
         dragStartY = mouseY;
@@ -230,7 +230,7 @@ void Input::mouseIn(LPARAM lParam)
     }
     else if (!mouseLButton && mouseDrag)
     {
-        //I—¹À•W‚ğ‹L˜^‚·‚é
+        //çµ‚äº†åº§æ¨™ã‚’è¨˜éŒ²ã™ã‚‹
         mouseDrag = false;
         dragEndX = mouseX;
         dragEndY = mouseY;

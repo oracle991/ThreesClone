@@ -1,4 +1,4 @@
-
+﻿
 #include "Tile.h"
 
 Tile::Tile()
@@ -40,24 +40,24 @@ void Tile::update(float frameTime)
 
 void Tile::setNum(int num)
 {
-    // �����`�F�b�N
+    // 引数チェック
     if (num != 0 && num != 1 && num != 2)
     {
-        // 0��1��2�łȂ��̂Ȃ��3�Ŋ���؂��͂�
+        // 0か1か2でないのならば3で割り切れるはず
         // 1+2 -> 3, 3+3->6, 6+6->12, ...
         if (num % 3 != 0)
         {
-            _ASSERT(false); // �Z�b�g���悤�Ƃ��������d�l�エ������
+            _ASSERT(false); // セットしようとした数が仕様上おかしい
         }
     }
     if (num < 768)
     {
-        //�e�N�X�`�����Ȃ��̂ŕ\���ł��Ȃ�
+        //テクスチャがないので表示できない
     }
 
     m_num = num;
     
-    // �e�N�X�`������ւ�
+    // テクスチャ入れ替え
     if (num == 0)
     {
         spriteData.rect.left = 0;

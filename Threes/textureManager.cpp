@@ -1,4 +1,4 @@
-// Programming 2D Games
+﻿// Programming 2D Games
 // Copyright (c) 2011 by: 
 // Charles Kelly
 // textureManager.cpp v1.0

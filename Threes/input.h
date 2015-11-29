@@ -1,4 +1,4 @@
-// Programming 2D Games
+﻿// Programming 2D Games
 // Copyright (c) 2011,2012 by: 
 // Charles Kelly
 // input.h v1.1

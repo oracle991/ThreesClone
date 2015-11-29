@@ -1,4 +1,4 @@
-// Threes Clone App
+ï»¿// Threes Clone App
 // @author Okumura Hiroaki
 
 #include "Field.h"
@@ -159,8 +159,8 @@ void Field::randomStart()
     std::mt19937 mt(rd());
     std::uniform_int_distribution<int> dist(1, 4);
 
-    //[1]‚Í0~3ŒÂB[2]‚Í0~3ŒÂB[3]‚Í0~3ŒÂB
-    //ƒ^ƒCƒ‹”‚ª2ŒÂˆÈ‰º‚¾‚Á‚½ê‡‹­§“I‚É3ŒÂ‚É‚·‚é(Še1ŒÂ)
+    //[1]ã¯1~4å€‹ã€‚[2]ã¯1~4å€‹ã€‚[3]ã¯1~4å€‹ã€‚
+    //ã‚¿ã‚¤ãƒ«æ•°ãŒ2å€‹ä»¥ä¸‹ã ã£ãŸå ´åˆå¼·åˆ¶çš„ã«3å€‹ã«ã™ã‚‹(å„1å€‹)
     int tile_num_1 = dist(mt);
     int tile_num_2 = dist(mt);
     int tile_num_3 = dist(mt);
@@ -172,7 +172,7 @@ void Field::randomStart()
         tile_num_3 = 1;
     }
 
-    //tile_num‚ğŒ³‚Éƒ‰ƒ“ƒ_ƒ€‚ÅÀ•W‚ğŒˆ‚ß‚Ä‚¢‚­
+    //tile_numã‚’å…ƒã«ãƒ©ãƒ³ãƒ€ãƒ ã§åº§æ¨™ã‚’æ±ºã‚ã¦ã„ã
     std::vector<std::pair<int, int>> points;
     for (int u = 0; u < fieldNS::height; u++)
     {
@@ -214,22 +214,22 @@ void Field::move(int diffX, int diffY)
 {
     if (diffX == 1)
     {
-        //‚±‚Ì•ÓA¶‰E‚Æã‰º‚ğ‚Ü‚Æ‚ß‚ç‚ê‚»‚¤‚È‹C‚ª‚·‚é‚ªA“Ç‚İ‚â‚·‚³‚Ì‚½‚ß‚ ‚¦‚Ä‚Ü‚Æ‚ß‚È‚¢B
+        //ã“ã®è¾ºã€å·¦å³ã¨ä¸Šä¸‹ã‚’ã¾ã¨ã‚ã‚‰ã‚Œãã†ãªæ°—ãŒã™ã‚‹ãŒã€èª­ã¿ã‚„ã™ã•ã®ãŸã‚ã‚ãˆã¦ã¾ã¨ã‚ãªã„ã€‚
 
-        //‰E•ûŒü‚É“®‚­
+        //å³æ–¹å‘ã«å‹•ã
         for (int x = fieldNS::width - 2; x >= 0; x--)
         {
             for (int y = 0; y < fieldNS::height; y++)
             {
                 int num = m_tiles(x, y).getNum();
                 int rightNum = m_tiles(x + 1, y).getNum();
-                //‰E‚É‚à‚Ì‚ª‚È‚¯‚ê‚Î“®‚­B
+                //å³ã«ã‚‚ã®ãŒãªã‘ã‚Œã°å‹•ãã€‚
                 if (rightNum == 0)
                 {
                     m_tiles(x + 1, y).setNum(num);
                     m_tiles(x, y).setNum(0);
                 }
-                //‘«‚¹‚é‚È‚ç“®‚­B
+                //è¶³ã›ã‚‹ãªã‚‰å‹•ãã€‚
                 else if (canAdd(num, rightNum))
                 {
                     m_tiles(x + 1, y).setNum(num + rightNum);
@@ -240,20 +240,20 @@ void Field::move(int diffX, int diffY)
     }
     else if (diffX == -1)
     {
-        //¶•ûŒü‚É“®‚­
+        //å·¦æ–¹å‘ã«å‹•ã
         for (int x = 1; x < fieldNS::width; x++)
         {
             for (int y = 0; y < fieldNS::height; y++)
             {
                 int num = m_tiles(x, y).getNum();
                 int leftNum = m_tiles(x - 1, y).getNum();
-                //¶‚É‚à‚Ì‚ª‚È‚¯‚ê‚Î“®‚­B
+                //å·¦ã«ã‚‚ã®ãŒãªã‘ã‚Œã°å‹•ãã€‚
                 if (leftNum == 0)
                 {
                     m_tiles(x - 1, y).setNum(num);
                     m_tiles(x, y).setNum(0);
                 }
-                //‘«‚¹‚é‚È‚ç“®‚­B
+                //è¶³ã›ã‚‹ãªã‚‰å‹•ãã€‚
                 else if (canAdd(num, leftNum))
                 {
                     m_tiles(x - 1, y).setNum(num + leftNum);
@@ -264,20 +264,20 @@ void Field::move(int diffX, int diffY)
     }
     else if (diffY == 1)
     {
-        //‰º•ûŒü‚É“®‚­
+        //ä¸‹æ–¹å‘ã«å‹•ã
         for (int y = fieldNS::height - 2; y >= 0; y--)
         {
             for (int x = 0; x < fieldNS::width; x++)
             {
                 int num = m_tiles(x, y).getNum();
                 int downNum = m_tiles(x, y + 1).getNum();
-                //‰º‚É‚à‚Ì‚ª‚È‚¯‚ê‚Î“®‚­B
+                //ä¸‹ã«ã‚‚ã®ãŒãªã‘ã‚Œã°å‹•ãã€‚
                 if (downNum == 0)
                 {
                     m_tiles(x, y + 1).setNum(num);
                     m_tiles(x, y).setNum(0);
                 }
-                //‘«‚¹‚é‚È‚ç“®‚­B
+                //è¶³ã›ã‚‹ãªã‚‰å‹•ãã€‚
                 else if (canAdd(num, downNum))
                 {
                     m_tiles(x, y + 1).setNum(num + downNum);
@@ -288,20 +288,20 @@ void Field::move(int diffX, int diffY)
     }
     else if (diffY == -1)
     {
-        //ã•ûŒü‚É“®‚­
+        //ä¸Šæ–¹å‘ã«å‹•ã
         for (int y = 1; y < fieldNS::height; y++)
         {
             for (int x = 0; x < fieldNS::width; x++)
             {
                 int num = m_tiles(x, y).getNum();
                 int upNum = m_tiles(x, y - 1).getNum();
-                //ã‚É‚à‚Ì‚ª‚È‚¯‚ê‚Î“®‚­B
+                //ä¸Šã«ã‚‚ã®ãŒãªã‘ã‚Œã°å‹•ãã€‚
                 if (upNum == 0)
                 {
                     m_tiles(x, y - 1).setNum(num);
                     m_tiles(x, y).setNum(0);
                 }
-                //‘«‚¹‚é‚È‚ç“®‚­B
+                //è¶³ã›ã‚‹ãªã‚‰å‹•ãã€‚
                 else if (canAdd(num, upNum))
                 {
                     m_tiles(x, y - 1).setNum(num + upNum);
@@ -313,10 +313,106 @@ void Field::move(int diffX, int diffY)
     addTile(diffX, diffY);
 }
 
-//“®‚©‚µ‚½ŒãAŠJ‚¢‚Ä‚é‚Æ‚±‚ë‚É“K“–‚Èƒ^ƒCƒ‹‚ğ“Ë‚Á‚ŞB
+
+bool Field::canMove(int diffX, int diffY)
+{
+    if (diffX == 1)
+    {
+        //ã“ã®è¾ºã€å·¦å³ã¨ä¸Šä¸‹ã‚’ã¾ã¨ã‚ã‚‰ã‚Œãã†ãªæ°—ãŒã™ã‚‹ãŒã€èª­ã¿ã‚„ã™ã•ã®ãŸã‚ã‚ãˆã¦ã¾ã¨ã‚ãªã„ã€‚
+
+        //å³æ–¹å‘ã«å‹•ã
+        for (int x = fieldNS::width - 2; x >= 0; x--)
+        {
+            for (int y = 0; y < fieldNS::height; y++)
+            {
+                int num = m_tiles(x, y).getNum();
+                int rightNum = m_tiles(x + 1, y).getNum();
+                //å³ã«ã‚‚ã®ãŒãªã‘ã‚Œã°å‹•ãã€‚
+                if (rightNum == 0)
+                {
+                    return true;
+                }
+                //è¶³ã›ã‚‹ãªã‚‰å‹•ãã€‚
+                else if (canAdd(num, rightNum))
+                {
+                    return true;
+                }
+            }
+        }
+    }
+    else if (diffX == -1)
+    {
+        //å·¦æ–¹å‘ã«å‹•ã
+        for (int x = 1; x < fieldNS::width; x++)
+        {
+            for (int y = 0; y < fieldNS::height; y++)
+            {
+                int num = m_tiles(x, y).getNum();
+                int leftNum = m_tiles(x - 1, y).getNum();
+                //å·¦ã«ã‚‚ã®ãŒãªã‘ã‚Œã°å‹•ãã€‚
+                if (leftNum == 0)
+                {
+                    return true;
+                }
+                //è¶³ã›ã‚‹ãªã‚‰å‹•ãã€‚
+                else if (canAdd(num, leftNum))
+                {
+                    return true;
+                }
+            }
+        }
+    }
+    else if (diffY == 1)
+    {
+        //ä¸‹æ–¹å‘ã«å‹•ã
+        for (int y = fieldNS::height - 2; y >= 0; y--)
+        {
+            for (int x = 0; x < fieldNS::width; x++)
+            {
+                int num = m_tiles(x, y).getNum();
+                int downNum = m_tiles(x, y + 1).getNum();
+                //ä¸‹ã«ã‚‚ã®ãŒãªã‘ã‚Œã°å‹•ãã€‚
+                if (downNum == 0)
+                {
+                    return true;
+                }
+                //è¶³ã›ã‚‹ãªã‚‰å‹•ãã€‚
+                else if (canAdd(num, downNum))
+                {
+                    return true;
+                }
+            }
+        }
+    }
+    else if (diffY == -1)
+    {
+        //ä¸Šæ–¹å‘ã«å‹•ã
+        for (int y = 1; y < fieldNS::height; y++)
+        {
+            for (int x = 0; x < fieldNS::width; x++)
+            {
+                int num = m_tiles(x, y).getNum();
+                int upNum = m_tiles(x, y - 1).getNum();
+                //ä¸Šã«ã‚‚ã®ãŒãªã‘ã‚Œã°å‹•ãã€‚
+                if (upNum == 0)
+                {
+                    return true;
+                }
+                //è¶³ã›ã‚‹ãªã‚‰å‹•ãã€‚
+                else if (canAdd(num, upNum))
+                {
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
+//å‹•ã‹ã—ãŸå¾Œã€é–‹ã„ã¦ã‚‹ã¨ã“ã‚ã«é©å½“ãªã‚¿ã‚¤ãƒ«ã‚’çªã£è¾¼ã‚€ã€‚
 void Field::addTile(int diffX, int diffY)
 {
-    // “Ë‚Á‚Ş”š‚ğÅ‰‚ÉŒˆ‚ß‚Ä‚¨‚­B
+    // çªã£è¾¼ã‚€æ•°å­—ã‚’æœ€åˆã«æ±ºã‚ã¦ãŠãã€‚
     std::random_device rd;
     std::mt19937 mt(rd());
     std::uniform_int_distribution<int> r(1, 3);
@@ -336,10 +432,10 @@ void Field::addTile(int diffX, int diffY)
 
         if (vy.size() == 0)
         {
-            //“®‚©‚µ‚½Œã‚É‹ó”’‚ª‚Å‚«‚È‚¢‚Æ‚¢‚¤‚Ì‚Í‚ ‚è‚¦‚È‚¢B
+            //å‹•ã‹ã—ãŸå¾Œã«ç©ºç™½ãŒã§ããªã„ã¨ã„ã†ã®ã¯ã‚ã‚Šãˆãªã„ã€‚
             _ASSERT(false);
         }
-        //Œó•â“_‚ªvy‚É“ü‚Á‚Ä‚é‚Ì‚ÅƒVƒƒƒbƒtƒ‹‚µ‚Äˆê”ÔÅ‰‚Ì—v‘f‚ğ“Ë‚Á‚ŞÀ•W‚Æ‚·‚é
+        //å€™è£œç‚¹ãŒvyã«å…¥ã£ã¦ã‚‹ã®ã§ã‚·ãƒ£ãƒƒãƒ•ãƒ«ã—ã¦ä¸€ç•ªæœ€åˆã®è¦ç´ ã‚’çªã£è¾¼ã‚€åº§æ¨™ã¨ã™ã‚‹
         std::shuffle(vy.begin(), vy.end(), mt);
         m_tiles(x, vy.at(0)).setNum(addTileNum);
     }
@@ -357,11 +453,64 @@ void Field::addTile(int diffX, int diffY)
 
         if (vx.size() == 0)
         {
-            //“®‚©‚µ‚½Œã‚É‹ó”’‚ª‚Å‚«‚È‚¢‚Æ‚¢‚¤‚Ì‚Í‚ ‚è‚¦‚È‚¢B
+            //å‹•ã‹ã—ãŸå¾Œã«ç©ºç™½ãŒã§ããªã„ã¨ã„ã†ã®ã¯ã‚ã‚Šãˆãªã„ã€‚
             _ASSERT(false);
         }
-        //Œó•â“_‚ªvx‚É“ü‚Á‚Ä‚é‚Ì‚ÅƒVƒƒƒbƒtƒ‹‚µ‚Äˆê”ÔÅ‰‚Ì—v‘f‚ğ“Ë‚Á‚ŞÀ•W‚Æ‚·‚é
+        //å€™è£œç‚¹ãŒvxã«å…¥ã£ã¦ã‚‹ã®ã§ã‚·ãƒ£ãƒƒãƒ•ãƒ«ã—ã¦ä¸€ç•ªæœ€åˆã®è¦ç´ ã‚’çªã£è¾¼ã‚€åº§æ¨™ã¨ã™ã‚‹
         std::shuffle(vx.begin(), vx.end(), mt);
         m_tiles(vx.at(0), y).setNum(addTileNum);
     }
+}
+
+bool Field::isGameOver()
+{
+    for (int x = 0; x < fieldNS::width; x++)
+    {
+        for (int y = 0; y < fieldNS::height; y++)
+        {
+            int num = m_tiles(x, y).getNum();
+            //å·¦
+            if (x != 0)
+            {
+                int leftNum = m_tiles(x - 1, y).getNum();
+                if (canAdd(num, leftNum))
+                {
+                    return false;
+                }
+            }
+
+            //å³
+            if (x != fieldNS::width - 1)
+            {
+                int rightNum = m_tiles(x + 1, y).getNum();
+                if (canAdd(num, rightNum))
+                {
+                    return false;
+                }
+            }
+
+            //ä¸Š
+            if (y != 0)
+            {
+                int upNum = m_tiles(x, y - 1).getNum();
+                if (canAdd(num, upNum))
+                {
+                    return false;
+                }
+            }
+
+            //ä¸‹
+            if (y != fieldNS::height - 1)
+            {
+                int downNum = m_tiles(x, y + 1).getNum();
+                if (canAdd(num, downNum))
+                {
+                    return false;
+                }
+            }
+
+
+        }
+    }
+    return true;
 }

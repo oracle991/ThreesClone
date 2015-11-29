@@ -32,8 +32,8 @@ const char BACKGROUND_IMAGE[] = "pictures\\background.png";  // black
 const char TILES_IMAGE[] = "pictures\\tiles.png"; //tiles
 
 // window
-const char CLASS_NAME[] = "Spacewar";
-const char GAME_TITLE[] = "Spacewar";
+const char CLASS_NAME[] = "Threes";
+const char GAME_TITLE[] = "Threes";
 const bool FULLSCREEN = false;              // windowed or fullscreen
 const UINT GAME_WIDTH =  640;               // width of game in pixels
 const UINT GAME_HEIGHT = 480;               // height of game in pixels

@@ -1,6 +1,6 @@
-// Threes Clone App
+ï»¿// Threes Clone App
 // Field.h
-// ƒ^ƒCƒ‹î•ñ‚ğŠi”[‚·‚éƒNƒ‰ƒXB
+// ã‚¿ã‚¤ãƒ«æƒ…å ±ã‚’æ ¼ç´ã™ã‚‹ã‚¯ãƒ©ã‚¹ã€‚
 // @author Okumura Hiroaki
 
 #include "TextureManager.h"
@@ -28,18 +28,19 @@ public:
     Field();
     ~Field();
 
-    //ƒOƒ[ƒoƒ‹À•W(2d)‚©‚çƒ^ƒCƒ‹ƒCƒ“ƒfƒbƒNƒX(¶ã(0,0) ~ ‰E‰º(3,3))‚É•ÏŠ·
+    //ã‚°ãƒ­ãƒ¼ãƒãƒ«åº§æ¨™(2d)ã‹ã‚‰ã‚¿ã‚¤ãƒ«ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹(å·¦ä¸Š(0,0) ~ å³ä¸‹(3,3))ã«å¤‰æ›
     static void convertGlobalPosToFieldPos(int globalX, int globalY, int& fieldX, int& fieldY);
 
     void initialize(Graphics* graphics, Game* gamePtr);
     void update(float frameTime);
-    void render();  //spriteBegin‚ğŒÄ‚ñ‚¾Œã‚ÉŒÄ‚Ô‚±‚Æ
+    void render();  //spriteBeginã‚’å‘¼ã‚“ã å¾Œã«å‘¼ã¶ã“ã¨
     void releaseAll();
     void resetAll();
 
     void setPosition(int x, int y);
     void randomStart();
     void move(int diffX, int diffY);
+    bool canMove(int diffX, int diffY);
     void addTile(int diffX, int diffY);
     bool isGameOver();
 };

@@ -1,6 +1,6 @@
-// Threes Clone App
+ï»¿// Threes Clone App
 // Array2d.h
-// 2ŸŒ³”z—ñ‚ğˆµ‚¤‚½‚ß‚Ì—˜•Ö—pƒNƒ‰ƒXB
+// 2æ¬¡å…ƒé…åˆ—ã‚’æ‰±ã†ãŸã‚ã®åˆ©ä¾¿ç”¨ã‚¯ãƒ©ã‚¹ã€‚
 // @author Okumura Hiroaki
 
 #include "constants.h"

@@ -1,4 +1,4 @@
-// Threes Clone App
+﻿// Threes Clone App
 // @author Okumura Hiroaki
 
 
@@ -23,6 +23,7 @@ private:
     Field   field;
     
     bool    m_isDragged;
+    bool    m_isGameOver;
 
 public:
     // Constructor
